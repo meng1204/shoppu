@@ -1,10 +1,10 @@
 # Shoppu
 
-Shoppu is a web-based, multi-device app that provides a platform for connecting customers and personal shoppers with each other.
+Shoppu is a web-based and multi-device app that provides a platform for connecting customers and personal shoppers to each other.
 
 ### Try it at http://shoppuapp.herokuapp.com/
 
-*Heads-up: As of Dec. 1, 2015, this app uses the free tier of Amazon S3, which expires after 12 months. Therefore, the image-uploading feature may break in the future, unless other arrangements are made.*
+*Heads-up: As of Dec. 1, 2015, this app uses the free tier of Amazon S3, which expires after 12 months. Therefore, the image-uploading feature could be broken in the future, unless other arrangements are made.*
 
 ### Running the app locally
 A file with environment constants _(shoppu\config\application.yml)_ is required to run the app locally. For more info, please contact existing developers.
@@ -20,7 +20,7 @@ rake db:migrate
 bin\rails server
 ```
 
-\* Basic form; this command will likely require additional arguments. It is highly recommended to follow a platform-specific guide for this step.
+\* Basic form; this command requires additional arguments. It is highly recommended to follow a platform-specific guide for this step.
 
 ### Authors
 | Name            | Initials  |
