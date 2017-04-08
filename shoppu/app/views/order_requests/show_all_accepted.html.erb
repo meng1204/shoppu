@@ -1,0 +1,48 @@
+<% provide(:title, 'Accepted Orders') %>
+<!--  The styling of the page can be found on the application.scss-->
+<!--Changed div from input_section to container to give wider view -->
+<div class="container">
+	<div class="panel-default">
+		<h1>Orders Accepted By You:</h1>
+		<% if @order_requests.blank? %>
+			<h3>It's empty right now, but it doesn't have to be!</h3>
+		<% else %>
+			<table class="table table-striped table-bordered table-hover">
+				<!-- Adding the header of the table here -->
+				<thead>
+					<tr>
+						<th style="width:40%">Order <small class="text-muted">Click on the order to view the details</small></th>
+						<th style="width:60%">Order Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @order_requests.each_with_index do |order_request, i| %>
+					<tr>
+						<td>
+							<%= i+1 %>.&nbsp;
+							<%#= order_request.title %>
+							<%= link_to order_request.title, {:controller => :order_requests, :action => :show_one_accepted, :id => order_request.id} %>
+							by <%= order_request.owner.username %>
+							(<%= number_to_currency(order_request.bounty) %>) <br/>
+							<small class="text-muted"> Updated <%= time_ago_in_words(order_request.updated_at) %> ago </small>
+						</td>
+						<td>
+							<% if order_request.description.blank? %>
+							<i>No description given</i>
+							<% else %>
+							<%= order_request.description %>
+							<% end %>
+						</td>
+					</tr>
+					<%end%>
+				</tbody>
+			</table>
+		<% end %>
+		<div class="links">
+			<%= link_to "View Open Orders", order_requests_show_open_path %> |
+			<%= link_to 'View Completed Orders', order_requests_show_all_completed_path %> |
+			<%= link_to 'Back to profile', user_path(current_user) %>
+		</div>
+	</div>
+	<br>
+</div>

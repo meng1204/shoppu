@@ -1,0 +1,14 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  content: MyText
+  # order_request_id: 1
+  order_request: one
+
+
+two:
+  status: MyString
+  content: MyText
+  # order_request_id: 1
+  order_request: one

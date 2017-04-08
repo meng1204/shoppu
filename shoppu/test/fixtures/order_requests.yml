@@ -1,0 +1,73 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  bounty: 9.99
+  deliver_by: 2015-11-08 00:09:31
+  accepted_at: 2015-11-08 00:09:31
+  address: "1234 123St, XY, A1A 1A1 Canada"
+  service_rating: 1
+  status: MyString
+  description: MyText
+  owner: UserTwo
+  servicer: UserOne
+
+two:
+  title: MyString
+  bounty: 9.99
+  deliver_by: 2015-11-08 00:09:31
+  accepted_at: 2015-11-08 00:09:31
+  address: "1234 123St, XY, A1A 1A1 Canada"
+  service_rating: 1
+  status: MyString
+  description: MyText
+  owner: UserTwo
+  servicer: UserOne
+
+test_list:
+  title: test_list
+  bounty: 19.99
+  deliver_by: 2015-11-08 00:09:31
+  accepted_at: 2015-11-08 00:09:31
+  address: "1234 123St, XY, A1A 1A1 Canada"
+  service_rating: 1
+  status: MyString
+  created_at: <%= 10.minutes.ago %>
+  owner: UserTwo
+  servicer: UserOne
+
+walmart_list:
+  title: walmart_list
+  bounty: 29.99
+  deliver_by: 2015-11-08 00:09:31
+  accepted_at: 2015-11-08 00:09:31
+  address: "1234 123St, XY, A1A 1A1 Canada"
+  service_rating: 2
+  status: closed
+  created_at: <%= 3.years.ago %>
+  owner: UserTwo
+  servicer: UserOne
+
+hardware_stuff:
+  title: hardware_stuff
+  bounty: 39.99
+  deliver_by: 2015-11-08 00:09:31
+  accepted_at: 2015-11-08 00:09:31
+  address: "1234 123St, XY, A1A 1A1 Canada"
+  service_rating: 5
+  status: closed
+  created_at: <%= 2.hours.ago %>
+  owner: UserTwo
+  servicer: UserOne
+
+most_recent:
+  title: most_recent
+  bounty: 9.99
+  deliver_by: 2015-11-08 00:09:31
+  accepted_at: 2015-11-08 00:09:31
+  address: "1234 123St, XY, A1A 1A1 Canada"
+  service_rating: 1
+  status: open
+  created_at: <%= Time.zone.now %>
+  owner: UserTwo
+  servicer: UserOne

@@ -1,0 +1,109 @@
+<% provide(:title, 'Open Orders') %>
+<div class="container">
+	<div class="panel-default">
+		<h1>Available Orders:</h1>
+
+		<% if @order_requests.blank? %>
+			<h3>No orders available - Please check back later</h3>
+		<% else %>
+
+		<div style='width: 100%;'>
+			<div id="geolocation" style='height: 400px;'></div>
+		</div>
+		<p class ="text-muted"><small>Please click zoom out if there is no open order shown</small></p>
+
+			<% @order_requests.each_with_index do |order_request, i| %>
+				<!-- map javascript here-->
+				<!--******************* -->
+				<div class="panel panel-info" style="margin-bottom: 15px;" id ="<%=i%>" >
+					<div class="panel-heading">
+						<p><strong><%= i+1 %>.&nbsp;<%= order_request.title %> by <%= order_request.owner.username %>
+						(<%= number_to_currency(order_request.bounty) %>)</strong> <small class="text-muted">Updated <%= time_ago_in_words(order_request.updated_at) %> ago </small></p>
+					</div>
+					<div class="panel-body">
+						<p class="order_request_sub_title"><strong>Description: </strong></p>
+						<p>
+							<% if order_request.description.blank? %>
+								<i>No description given</i>
+							<% else %>
+								<%= order_request.description %>
+							<% end %>
+						</p>
+						<p><strong>Address for Delivery:</strong></p>
+						<p><%= order_request.address%></p>
+
+						<div style="border: solid 1px #555; padding: 5px; ">
+							<p class="order_request_sub_title"><strong>List of Items: </strong></p>
+							<ol class="order_item">
+								<% if order_request.order_items.empty? %>
+									<i>No order items exist</i>
+								<% else%>
+									<ol class="order_item">
+										<% order_request.order_items.each do |order_item| %>
+										<li><%= order_item.content %></li>
+										<% end %>
+									</ol>
+								<% end %>
+							</ol>
+						</div>
+					</div>
+					<div class="panel-footer">
+						<div>
+							<%= link_to order_requests_accept_path(:id => order_request.id) do%>
+							<button type="button" class="btn btn-success btn-lg btn-block"style="text-decoration:none;">Accept This Order</button>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+		<div class="links">
+			<%= link_to 'Back to profile', user_path(current_user) %>
+		</div>
+	</div>
+</div>
+<!--  The styling of the page can be found on the application.scss-->
+<!--Changed div from input_section to container to give wider view -->
+
+
+<script type="text/javascript">
+var handler = Gmaps.build('Google');
+handler.buildMap({ internal: {id: 'geolocation'} }, function(){
+  if(navigator.geolocation)
+    navigator.geolocation.getCurrentPosition(displayOnMap);
+
+
+		var markers = handler.addMarkers([
+			<% @order_requests.each_with_index do |order_request, i| %>
+				{ lat: <%= order_request.latitude %>, lng: <%= order_request.longitude %>, infowindow: "<a href='#<%=i%>'><%= order_request.title%> by <%=order_request.owner.username%></a> <br/><%=order_request.address%>",},
+
+			<% end %>
+
+
+ 	]);
+
+		if(navigator.geolocation)
+	    navigator.geolocation.getCurrentPosition(displayOnMap);
+
+
+});
+
+function displayOnMap(position){
+  var marker = handler.addMarker({
+    lat: position.coords.latitude,
+    lng: position.coords.longitude,
+		picture: {
+			url: "http://mt.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1",
+			width:  36,
+			height: 36
+		},
+
+		"infowindow": "You're Here"
+
+
+
+  });
+  handler.map.centerOn(marker);
+	 handler.getMap().setZoom(15);
+};
+</script>

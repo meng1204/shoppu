@@ -1,0 +1,61 @@
+<% provide(:title, 'Your Orders') %>
+<!--  The styling of the page can be found on the application.scss-->
+<!--Changed div from input_section to container to give wider view -->
+<div class="container">
+	<div class="panel-default">
+		<h1>My Orders</h1>
+		<table class="table table-striped table-bordered table-hover">
+			<!-- Adding the header of the table here -->
+			<thead>
+				<tr>
+					<th style="width:30%">ORDER <small class="text-muted">Click on the order to view the details</small></th>
+					<th style="width:55%">Description</th>
+					<th style="width:15%">Status</th> <!-- add a color-coded status column -A */ -->
+				</tr>
+			</thead>
+			<tbody>
+				<% current_user.owned_orders.each do |order_request| %>
+				<!--
+				<div class="index_row clearfix">
+						<h2 class="order_request_title"><%#= link_to order_request.title, order_request %></h2>
+						<p class="order_request_sub_title"><#%= order_request.description %></p>
+				</div>
+				-->
+				<tr>
+					<td> <%= link_to order_request.title, order_request %></td>
+					<td>
+						<% if order_request.description.blank? %>
+							<i>No description given</i>
+						<% else %>
+							<%= order_request.description %>
+						<% end %>
+					</td>
+					<!--the following shows the colorcoded status -A*/-->
+					<% if order_request.status=="open" %>
+						<td style="background-color:#458B00">
+							<i style="color:#FFFFFF">OPEN</i>
+						</td>
+					<% elsif order_request.status=="accepted" %>
+						<td style="background-color:#FBDB0C">
+							<i style="color:#FFFFFF">ACCEPTED</i>
+						</td>
+					<% elsif order_request.status=="completed" %>
+						<td style="background-color:#8B8989">
+							<i style="color:#FFFFFF">COMPLETED</i>
+						</td>
+					<% else %>
+						<td style="background-color:#E3170D">
+							<i style="color:#FFFFFF">HIDDEN</i>
+						</td>
+					<% end %>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+	<br>
+	<div class="links">
+		<%= link_to "New Order", new_order_request_path %> |
+		<%= link_to "Back to profile", user_path(current_user.id) %>
+	</div>
+</div>
